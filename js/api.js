@@ -254,12 +254,11 @@ export async function requestService(serviceId, message = "") {
 
 export async function acceptRequest(id) {
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase.rpc("set_service_request_status", {
-      p_request_id: id,
-      p_status: "accepted"
+    const { data, error } = await supabase.rpc("accept_service_request", {
+      p_request_id: id
     });
     if (error) throw new Error("Unable to accept this request.");
-    return { ok: true, request: data };
+    return { ok: true, session: data };
   }
   await delay(320);
   const request = mock.requests.find((item) => item.id === id);
@@ -269,9 +268,8 @@ export async function acceptRequest(id) {
 
 export async function declineRequest(id) {
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase.rpc("set_service_request_status", {
-      p_request_id: id,
-      p_status: "rejected"
+    const { data, error } = await supabase.rpc("reject_service_request", {
+      p_request_id: id
     });
     if (error) throw new Error("Unable to decline this request.");
     return { ok: true, request: data };
@@ -289,13 +287,69 @@ export async function completeService() {
 
 export async function completeServiceRequest(requestId) {
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase.rpc("complete_service_and_transfer", {
-      p_request_id: requestId
+    const { data, error } = await supabase.rpc("complete_service_session", {
+      p_session_id: requestId
     });
-    if (error) throw new Error("Unable to complete the service and transfer credits.");
+    if (error) {
+      console.error("Settlement failed:", {
+        message: error.message,
+        code: error.code,
+        details: error.details,
+        hint: error.hint
+      });
+      const message = error.message || "Unable to complete the service and transfer credits.";
+      if (/insufficient time credits/i.test(message)) throw new Error("Insufficient Time Credits");
+      if (/has not reached|has not ended/i.test(message)) throw new Error("The session has not ended yet.");
+      if (/not found/i.test(message)) throw new Error("Service session not found.");
+      if (/not a session participant|authentication required/i.test(message)) throw new Error("You are not authorized for this session.");
+      throw new Error(message);
+    }
     return data;
   }
   return completeService();
+}
+
+export async function loadServiceSession(sessionId) {
+  if (!isSupabaseConfigured) throw new Error("Supabase must be configured for service sessions.");
+  const { data, error } = await supabase
+    .from("service_sessions")
+    .select(`
+      id, request_id, service_id, provider_id, requester_id, duration_minutes,
+      scheduled_start_at, scheduled_end_at, actual_start_at, actual_end_at,
+      status, video_room_id, provider_joined_at, requester_joined_at,
+      completed_at, settled_at,
+      services!inner (title, time_credits),
+      provider:profiles!service_sessions_provider_id_fkey (full_name),
+      requester:profiles!service_sessions_requester_id_fkey (full_name)
+    `)
+    .eq("id", sessionId)
+    .single();
+  if (error) {
+    console.error("Session load failed:", error);
+    throw new Error(error.message || "Unable to load this service session.");
+  }
+  return data;
+}
+
+export async function joinServiceSession(sessionId) {
+  if (!isSupabaseConfigured) throw new Error("Supabase must be configured for service sessions.");
+  const { data, error } = await supabase.rpc("join_service_session", {
+    p_session_id: sessionId
+  });
+  if (error) {
+    console.error("Session join failed:", error);
+    throw new Error(error.message || "Unable to join this service session.");
+  }
+  return data;
+}
+
+export async function getServerTime() {
+  if (!isSupabaseConfigured) throw new Error("Supabase must be configured for service sessions.");
+  const startedAt = Date.now();
+  const { data, error } = await supabase.rpc("get_server_time");
+  const finishedAt = Date.now();
+  if (error) throw new Error("Unable to synchronize the session timer.");
+  return new Date(data).getTime() - Math.round((startedAt + finishedAt) / 2);
 }
 
 export async function transferTimeCredits(amount, toUserId) {
@@ -352,6 +406,7 @@ export async function loadRequests() {
         message,
         requested_at,
         services!inner (id, title, duration_minutes, time_credits),
+        service_sessions (id, scheduled_start_at, scheduled_end_at, status, settled_at),
         requester:profiles!service_requests_requester_id_fkey (id, full_name, username, avatar_url)
       `)
       .or(`requester_id.eq.${user.id},provider_id.eq.${user.id}`)
@@ -373,6 +428,7 @@ export async function loadRequests() {
         duration: request.services.duration_minutes / 60,
         cost: Number(request.services.time_credits)
       },
+      session: Array.isArray(request.service_sessions) ? request.service_sessions[0] : request.service_sessions,
       hours: request.services.duration_minutes / 60,
       message: request.message || ""
     }));

@@ -7,7 +7,7 @@ TimeBank is a static HTML, CSS, and JavaScript application where time is exchang
 1. Create a project at [supabase.com](https://supabase.com).
 2. Open **Project Settings > API**.
 3. Copy the project URL and the public publishable/anon key. Never use the `service_role` key in this project.
-4. Open the Supabase SQL Editor and run `supabase/migrations/001_initial_schema.sql`.
+4. Open the Supabase SQL Editor and run `supabase/migrations/001_initial_schema.sql`, then `supabase/migrations/002_service_sessions.sql`.
 5. In an untracked local copy of `js/runtime-config.js`, set:
 
 ```js
@@ -23,6 +23,12 @@ The tracked file intentionally contains no credentials. Keep local runtime crede
 
 Enable Email authentication in **Authentication > Providers**. The registration form sends `full_name`, `username`, and `location` as Auth metadata. The database trigger creates the matching `profiles` and `wallets` rows automatically.
 
+## Service sessions
+
+Providers accept requests through `accept_service_request()`, which creates one private `service_sessions` row. Both participants join through `join_service_session()`. The browser countdown is display-only and is calculated from server timestamps. Credit settlement is performed only by `complete_service_session()`, which locks both wallets and is idempotent by `transactions.session_id`.
+
+The current browser video path uses WebRTC with Supabase Realtime broadcast signaling and a public STUN server. A TURN provider is still required for reliable connections across restrictive networks.
+
 ## Current integration boundary
 
 Supabase Auth is connected when runtime configuration is present. The existing UI continues to use mock repository data for marketplace, wallet, request, notification, and transaction screens until their methods in `js/api.js` are replaced with the corresponding Supabase queries and RPC calls. This fallback keeps the static UI usable while the database is being configured.
@@ -32,7 +38,7 @@ Supabase Auth is connected when runtime configuration is present. The existing U
 - RLS is enabled on application tables.
 - Wallet balances cannot be directly updated by browser users.
 - Transactions are append-only for browser users.
-- `complete_service_and_transfer` locks both wallets and performs the ledger transfer atomically.
+- The legacy `complete_service_and_transfer` and direct request-status functions are not executable by authenticated clients; session settlement uses only `complete_service_session()`.
 - No password, service-role key, database password, or private token belongs in this repository.
 
 ## Local preview

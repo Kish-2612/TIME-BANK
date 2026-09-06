@@ -1,4 +1,5 @@
 import { acceptRequest, declineRequest, loadRequests } from "./api.js";
+import { isSupabaseConfigured, supabase } from "./supabase.js";
 import { mountChrome } from "./app.js";
 import { initials, toast } from "./ui.js";
 
@@ -26,7 +27,7 @@ function render(list) {
             ? `<button class="btn btn-primary" data-accept="${item.id}">Accept</button>
                <button class="btn btn-danger" data-decline="${item.id}">Decline</button>`
             : item.status !== "new"
-              ? `<a class="btn btn-primary" href="call.html?request=${item.id}">Join video call</a>`
+              ? `<a class="btn btn-primary" href="call.html?session=${item.session?.id || ""}">Join video call</a>`
               : `<span class="muted">Waiting for the provider</span>`}
         </div>
       </article>
@@ -40,35 +41,46 @@ document.addEventListener("DOMContentLoaded", async () => {
   let list = await loadRequests();
   render(list);
 
+  let refreshChannel;
+  if (isSupabaseConfigured) {
+    refreshChannel = supabase
+      .channel("timebank-request-updates")
+      .on("postgres_changes", { event: "*", schema: "public", table: "service_requests" }, async () => {
+        list = await loadRequests();
+        render(list);
+      })
+      .subscribe();
+  }
+
   document.querySelector("[data-requests]").addEventListener("click", async (event) => {
     const accept = event.target.closest("[data-accept]");
     const decline = event.target.closest("[data-decline]");
     if (accept) {
       const requestId = accept.dataset.accept;
-      await acceptRequest(requestId);
-      window.location.href = `call.html?request=${requestId}`;
+      try {
+        const result = await acceptRequest(requestId);
+        toast("Request accepted. Starting your TimeBank session.");
+        window.location.href = `call.html?session=${result.session.id}`;
+      } catch (error) {
+        toast(error.message || "Unable to accept this request.", "error");
+      }
       return;
-      const card = accept.closest("[data-card]");
-      card.style.transition = "transform 240ms ease, opacity 240ms ease";
-      card.style.opacity = "0";
-      card.style.transform = "translateX(16px)";
-      toast("Request accepted. Time is reserved.");
-      setTimeout(async () => {
-        list = await loadRequests();
-        render(list);
-      }, 240);
     }
     if (decline) {
-      await declineRequest(decline.dataset.decline);
-      const card = decline.closest("[data-card]");
-      card.style.transition = "transform 240ms ease, opacity 240ms ease";
-      card.style.opacity = "0";
-      card.style.transform = "translateX(-16px)";
-      toast("Request declined.");
-      setTimeout(async () => {
-        list = await loadRequests();
-        render(list);
-      }, 240);
+      try {
+        await declineRequest(decline.dataset.decline);
+        const card = decline.closest("[data-card]");
+        card.style.transition = "transform 240ms ease, opacity 240ms ease";
+        card.style.opacity = "0";
+        card.style.transform = "translateX(-16px)";
+        toast("Request declined.");
+        setTimeout(async () => {
+          list = await loadRequests();
+          render(list);
+        }, 240);
+      } catch (error) {
+        toast(error.message || "Unable to decline this request.", "error");
+      }
     }
   });
 });

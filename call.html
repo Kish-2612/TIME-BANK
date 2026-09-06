@@ -20,6 +20,11 @@
         <p class="eyebrow">Time exchange</p>
         <h1 class="section-title" data-call-title>Video call</h1>
         <p class="muted" data-call-status>Connecting to the call...</p>
+        <div class="meta-row" style="margin-top:12px;">
+          <span data-call-participants>Provider and requester</span>
+          <span data-call-duration>Duration: --</span>
+          <span data-call-window>Scheduled: --</span>
+        </div>
         <div class="cards-grid" style="margin-top:22px;grid-template-columns:repeat(2,minmax(0,1fr));">
           <article class="dark-card">
             <p class="eyebrow">You</p>
@@ -35,7 +40,12 @@
             <div class="label">Time remaining</div>
             <div class="value num" data-call-timer>--:--</div>
           </div>
-          <button class="btn btn-danger" type="button" data-leave>Leave call</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-ghost" type="button" data-toggle-mic>Mute microphone</button>
+            <button class="btn btn-ghost" type="button" data-toggle-camera>Turn camera off</button>
+            <button class="btn btn-ghost" type="button" data-enable-audio hidden>Enable audio</button>
+            <button class="btn btn-danger" type="button" data-leave>Leave call</button>
+          </div>
         </div>
       </main>
     </div>

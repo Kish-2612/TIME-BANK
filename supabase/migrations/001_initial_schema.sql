@@ -209,7 +209,6 @@ end;
 $$;
 
 revoke all on function public.complete_service_and_transfer(uuid) from public;
-grant execute on function public.complete_service_and_transfer(uuid) to authenticated;
 
 create or replace function public.create_service_request(p_service_id uuid, p_message text default null)
 returns public.service_requests
@@ -298,7 +297,6 @@ end;
 $$;
 
 revoke all on function public.set_service_request_status(uuid, text) from public;
-grant execute on function public.set_service_request_status(uuid, text) to authenticated;
 
 create index if not exists services_provider_idx on public.services(provider_id);
 create index if not exists services_category_idx on public.services(category_id);
