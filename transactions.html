@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transactions — TimeBank</title>
+  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="page-shell" data-page="transactions">
+  <div class="app-layout">
+    <aside class="sidebar" data-sidebar></aside>
+    <div>
+      <header class="navbar" data-nav></header>
+      <main class="app-main">
+        <p class="eyebrow">Ledger</p>
+        <h1 class="section-title">Transaction history</h1>
+        <div class="filters" data-tx-filters style="margin:20px 0;">
+          <button class="filter-chip is-active" type="button" data-filter="All">All</button>
+          <button class="filter-chip" type="button" data-filter="Earned">Earned</button>
+          <button class="filter-chip" type="button" data-filter="Spent">Spent</button>
+          <button class="filter-chip" type="button" data-filter="Donated">Donated</button>
+        </div>
+        <div class="dark-card">
+          <table class="tx-table">
+            <thead>
+              <tr><th>Date</th><th>Person</th><th>Service</th><th>Amount</th><th>Status</th></tr>
+            </thead>
+            <tbody data-tx-body></tbody>
+          </table>
+          <div class="mobile-tx" data-tx-mobile></div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <nav class="bottom-nav" data-bottom-nav></nav>
+  <div class="mobile-menu" data-mobile-menu></div>
+  <div class="toast-stack" data-toast-root></div>
+  <div class="modal-root" data-modal-root></div>
+  <script src="js/runtime-config.js"></script>
+  <script type="module" src="js/transactions.js"></script>
+</body>
+</html>

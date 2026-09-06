@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TimeBank — Your Time Is Your Currency</title>
+  <meta name="description" content="Give an hour. Earn an hour. TimeBank is a bank for human time.">
+  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="page-shell grid-bg" data-page="home">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar" data-nav></header>
+  <div class="mobile-menu" data-mobile-menu></div>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-scan"></div>
+      <div class="container hero-grid">
+        <div class="reveal">
+          <p class="eyebrow">The time economy</p>
+          <h1 class="display">Your Time Is<br><em>Your Currency.</em></h1>
+          <p class="lead">Give an hour. Earn an hour. Build a community where skills, help and human connection are exchanged through time.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="register.html">Start Banking Time</a>
+            <a class="btn btn-ghost" href="#how">Explore How It Works</a>
+          </div>
+        </div>
+        <div class="wallet-visual">
+          <div class="float-chip a float">+1 hr Java Tutoring</div>
+          <div class="float-chip b float float-delay">+0.5 hr Design Help</div>
+          <div class="float-chip c float">4.9 ★ Reputation</div>
+          <article class="wallet-card">
+            <p class="eyebrow">Time Wallet</p>
+            <div class="wallet-ring">
+              <svg viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="track" cx="100" cy="100" r="90"></circle>
+                <circle class="progress" data-hero-progress cx="100" cy="100" r="90" stroke-dasharray="565.48" stroke-dashoffset="565.48"></circle>
+              </svg>
+              <div class="wallet-center">
+                <div class="label">Time Credits</div>
+                <div class="value num balance-pulse" data-hero-balance>0.0</div>
+                <div class="chip" data-hero-earned>+0.0 earned this week</div>
+              </div>
+            </div>
+            <canvas data-spark height="88" style="width:100%;height:88px;margin-top:16px;"></canvas>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="stats-row" data-stats>
+          <div class="stat-cell"><div class="num" data-stat="members">0</div><span>Members</span></div>
+          <div class="stat-cell"><div class="num" data-stat="hours">0</div><span>Hours Exchanged</span></div>
+          <div class="stat-cell"><div class="num" data-stat="services">0</div><span>Services Completed</span></div>
+          <div class="stat-cell"><div class="num" data-stat="rating">0</div><span>Average Rating</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <p class="eyebrow">How it works</p>
+        <h2 class="section-title">Four moves. One ledger.</h2>
+        <p class="section-kicker">Open an account, offer what you know, exchange hours, and keep a living balance of time.</p>
+        <div class="timeline" data-observe>
+          <article class="step"><div class="step-index">01</div><div><h3>Create Your TimeBank Account</h3><p class="muted">Identity, skills, and a starting reputation. No money required.</p></div></article>
+          <article class="step"><div class="step-index">02</div><div><h3>Offer Your Skills</h3><p class="muted">Publish an hour of what you can actually teach, fix, or make.</p></div></article>
+          <article class="step"><div class="step-index">03</div><div><h3>Exchange Your Time</h3><p class="muted">Request help, complete the hour, and the ledger moves both ways.</p></div></article>
+          <article class="step"><div class="step-index">04</div><div><h3>Earn &amp; Spend Time Credits</h3><p class="muted">Every completed hour becomes currency you can spend or donate.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="currency">
+      <div class="container">
+        <p class="eyebrow">The currency</p>
+        <h2 class="section-title">Money Isn't the Only Currency.</h2>
+        <div class="compare reveal">
+          <article class="compare-card">
+            <h3>Traditional Bank</h3>
+            <ul>
+              <li>Asset <span>Money</span></li>
+              <li>Inflow <span>Income</span></li>
+              <li>Outflow <span>Spending</span></li>
+              <li>Activity <span>Transactions</span></li>
+              <li>Result <span>Balance</span></li>
+            </ul>
+          </article>
+          <div class="compare-vs">VS</div>
+          <article class="compare-card time">
+            <h3>TimeBank</h3>
+            <ul>
+              <li>Asset <span style="color:var(--color-gold)">Time</span></li>
+              <li>Inflow <span style="color:var(--color-primary)">Helping</span></li>
+              <li>Outflow <span>Receiving</span></li>
+              <li>Activity <span>Time Exchange</span></li>
+              <li>Result <span style="color:var(--color-gold)">Time Balance</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container">
+        <p class="eyebrow">Marketplace</p>
+        <h2 class="section-title">Find Someone Who Can Help.</h2>
+        <p class="section-kicker">Hours priced in hours. People priced in reputation.</p>
+        <div class="cards-grid" data-market-preview style="margin-top:28px;"></div>
+        <p style="margin-top:22px;"><a class="btn btn-primary" href="marketplace.html">Open the marketplace</a></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Smart matching</p>
+        <h2 class="section-title">People You Should Meet</h2>
+        <p class="section-kicker">Match scores are a product surface ready for a real algorithm — not a claim of intelligence.</p>
+        <div class="cards-grid" data-matches style="margin-top:28px;"></div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container pool-hero">
+        <div>
+          <p class="eyebrow">Community time pool</p>
+          <h2 class="section-title">Give Time. Create Impact.</h2>
+          <p class="section-kicker">Donate unused Time Credits to help people who cannot afford to give time back.</p>
+          <a class="btn btn-gold" href="community.html" style="margin-top:22px;">Donate Time</a>
+        </div>
+        <article class="pool-stat">
+          <p class="eyebrow">Community Pool</p>
+          <div class="num" data-pool-hours>0</div>
+          <p class="muted">hours held in trust</p>
+          <div class="meta-row" style="color:var(--color-text-muted);">
+            <span>Donated by <strong data-pool-donors>0</strong> members</span>
+            <span>People helped <strong data-pool-helped>0</strong></span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" data-footer></footer>
+  <div class="toast-stack" data-toast-root></div>
+  <div class="modal-root" data-modal-root></div>
+  <script src="js/runtime-config.js"></script>
+  <script type="module" src="js/landing.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time Wallet — TimeBank</title>
+  <link rel="icon" href="assets/icons/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="page-shell" data-page="wallet">
+  <div class="app-layout">
+    <aside class="sidebar" data-sidebar></aside>
+    <div>
+      <header class="navbar" data-nav></header>
+      <main class="app-main">
+        <p class="eyebrow">Time Wallet</p>
+        <h1 class="section-title">Available Time</h1>
+        <div class="kpi-grid" style="margin-top:22px;">
+          <article class="wallet-card">
+            <div class="wallet-ring">
+              <svg viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="track" cx="100" cy="100" r="90"></circle>
+                <circle class="progress" data-wallet-ring cx="100" cy="100" r="90" stroke-dasharray="565.48" stroke-dashoffset="565.48"></circle>
+              </svg>
+              <div class="wallet-center">
+                <div class="label">Balance</div>
+                <div class="value num" data-wallet-balance>0.0</div>
+                <div class="chip" data-wallet-month>+0.0 hrs this month</div>
+              </div>
+            </div>
+          </article>
+          <article class="kpi"><div class="label">Earned</div><div class="value num" data-wallet-earned>0.0 hrs</div></article>
+          <article class="kpi"><div class="label">Spent</div><div class="value num" style="color:var(--color-spend);" data-wallet-spent>0.0 hrs</div></article>
+          <article class="kpi">
+            <div class="label">Give back</div>
+            <p class="muted" style="margin:10px 0 16px;">Move unused credits into the community pool.</p>
+            <button class="btn btn-gold" type="button" data-donate>Donate Time</button>
+          </article>
+        </div>
+        <article class="chart-box" style="margin-top:18px;">
+          <h2>Earn / spend rhythm</h2>
+          <canvas data-earn-chart></canvas>
+        </article>
+        <article class="dark-card" style="margin-top:18px;">
+          <h2>Recent activity</h2>
+          <div data-wallet-tx></div>
+        </article>
+      </main>
+    </div>
+  </div>
+  <nav class="bottom-nav" data-bottom-nav></nav>
+  <div class="mobile-menu" data-mobile-menu></div>
+  <div class="toast-stack" data-toast-root></div>
+  <div class="modal-root" data-modal-root></div>
+  <script src="js/runtime-config.js"></script>
+  <script type="module" src="js/wallet.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-120%); opacity: 0; }
+  20% { opacity: 0.35; }
+  100% { transform: translateY(220%); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes bounce-soft {
+  0% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes press {
+  to { transform: translateY(1px) scale(0.985); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.page-enter {
+  animation: fade-in 420ms var(--ease);
+}
+
+.float {
+  animation: float-y 7s var(--ease) infinite;
+}
+
+.float-delay {
+  animation-delay: 1.2s;
+}
+
+.hero-scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-scan::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 80px;
+  background: linear-gradient(180deg, transparent, rgba(53, 224, 208, 0.12), transparent);
+  animation: scan 8s linear infinite;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.1), rgba(255,255,255,0.04));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: var(--radius-sm);
+}
+
+.balance-pulse {
+  animation: glow-pulse 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .float,
+  .hero-scan::after,
+  .balance-pulse,
+  .page-enter {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
