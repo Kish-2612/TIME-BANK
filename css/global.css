@@ -78,7 +78,7 @@ p {
 }
 
 .container {
-  width: min(100% - 40px, var(--container));
+  width: min(calc(100% - 40px), var(--container));
   margin-inline: auto;
 }
 

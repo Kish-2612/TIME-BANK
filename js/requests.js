@@ -5,7 +5,7 @@ import { initials, toast } from "./ui.js";
 
 function render(list) {
   const root = document.querySelector("[data-requests]");
-  const open = list.filter((item) => item.status === "new" || item.status === "accepted" || item.status === "in_progress");
+  const open = list.filter((item) => ["pending", "accepted", "in_progress"].includes(item.status));
   if (!open.length) {
     root.innerHTML = `<div class="empty"><p>No open requests right now.</p><a class="btn btn-primary" href="marketplace.html">Find someone to help</a></div>`;
     return;
@@ -14,7 +14,7 @@ function render(list) {
     .map(
       (item) => `
       <article class="request-card" data-card="${item.id}">
-        <div class="badge">${item.status === "new" ? "New request" : "Accepted"}</div>
+        <div class="badge">${item.status === "pending" ? "Pending request" : item.status === "in_progress" ? "In progress" : "Accepted"}</div>
         <div class="person" style="margin:12px 0;">
           <div class="avatar">${initials(item.from.fullName)}</div>
           <strong>${item.from.fullName} wants your help</strong>
@@ -23,7 +23,7 @@ function render(list) {
         <p>Requested: ${item.hours} Hour</p>
         <p style="margin:10px 0 16px;">Message: “${item.message}”</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          ${item.status === "new" && item.isProvider
+          ${item.status === "pending" && item.isProvider
             ? `<button class="btn btn-primary" data-accept="${item.id}">Accept</button>
                <button class="btn btn-danger" data-decline="${item.id}">Decline</button>`
             : item.status !== "new"

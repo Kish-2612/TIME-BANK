@@ -3,8 +3,8 @@ import { mountChrome } from "./app.js";
 import { formatDate, formatHours } from "./ui.js";
 
 function row(item) {
-  const sign = item.type === "earned" ? "+" : "-";
-  const klass = item.type === "earned" ? "earn" : item.type === "donated" ? "donate" : "spend";
+  const sign = item.incoming ? "+" : "-";
+  const klass = item.type === "community_donation" ? "donate" : item.incoming ? "earn" : "spend";
   return `
     <tr>
       <td>${formatDate(item.date)}</td>
@@ -17,8 +17,8 @@ function row(item) {
 }
 
 function card(item) {
-  const sign = item.type === "earned" ? "+" : "-";
-  const klass = item.type === "earned" ? "earn" : item.type === "donated" ? "donate" : "spend";
+  const sign = item.incoming ? "+" : "-";
+  const klass = item.type === "community_donation" ? "donate" : item.incoming ? "earn" : "spend";
   return `
     <article class="dark-card">
       <strong class="amt ${klass} num">${sign}${formatHours(item.amount)}</strong>

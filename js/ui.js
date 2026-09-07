@@ -17,7 +17,7 @@ export function formatHours(value) {
 }
 
 export function formatDate(iso) {
-  const date = new Date(`${iso}T12:00:00`);
+  const date = new Date(typeof iso === "string" && iso.includes("T") ? iso : `${iso}T12:00:00`);
   const today = new Date();
   const yesterday = new Date();
   yesterday.setDate(today.getDate() - 1);

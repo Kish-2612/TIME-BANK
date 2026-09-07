@@ -16,7 +16,7 @@
     <aside class="sidebar" data-sidebar></aside>
     <div>
       <header class="navbar" data-nav></header>
-      <main class="app-main">
+      <main class="app-main call-main">
         <p class="eyebrow">Time exchange</p>
         <h1 class="section-title" data-call-title>Video call</h1>
         <p class="muted" data-call-status>Connecting to the call...</p>
@@ -26,16 +26,16 @@
           <span data-call-window>Scheduled: --</span>
         </div>
         <div class="cards-grid" style="margin-top:22px;grid-template-columns:repeat(2,minmax(0,1fr));">
-          <article class="dark-card">
+          <article class="dark-card call-video-card">
             <p class="eyebrow">You</p>
             <video data-local-video autoplay muted playsinline style="width:100%;aspect-ratio:16/9;background:#02070d;object-fit:cover;border-radius:var(--radius-sm);margin-top:12px;"></video>
           </article>
-          <article class="dark-card">
+          <article class="dark-card call-video-card">
             <p class="eyebrow">Other participant</p>
             <video data-remote-video autoplay playsinline style="width:100%;aspect-ratio:16/9;background:#02070d;object-fit:cover;border-radius:var(--radius-sm);margin-top:12px;"></video>
           </article>
         </div>
-        <div class="dark-card" style="margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div class="dark-card call-controls" style="margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
           <div>
             <div class="label">Time remaining</div>
             <div class="value num" data-call-timer>--:--</div>

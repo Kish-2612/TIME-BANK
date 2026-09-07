@@ -21,55 +21,19 @@
     <div>
       <header class="navbar" data-nav></header>
       <main class="app-main" id="main">
-        <p class="eyebrow">Overview</p>
-        <h1 class="section-title" data-greeting>Good evening, Alex</h1>
-        <p class="muted" style="margin:8px 0 24px;">Here's how your time is moving.</p>
-        <div class="kpi-grid">
-          <article class="kpi">
-            <div class="label">Time Balance</div>
-            <div class="value num" data-balance>0.0 hrs</div>
-          </article>
-          <article class="kpi">
-            <div class="label">Earned</div>
-            <div class="value num" style="color:var(--color-primary);" data-earned>+0 hrs</div>
-          </article>
-          <article class="kpi">
-            <div class="label">Spent</div>
-            <div class="value num" style="color:var(--color-spend);" data-spent>-0 hrs</div>
-          </article>
-          <article class="kpi">
-            <div class="label">Community</div>
-            <div class="value num" data-community>+0 hrs</div>
-          </article>
+        <div class="dashboard-top"><div><p class="eyebrow">Overview</p><h1 class="section-title" data-greeting>Welcome to your TimeBank</h1><p class="muted">Here is how your time is moving today.</p></div><div class="dashboard-tools"><label class="search-bar"><span aria-hidden="true">⌕</span><input placeholder="Search skills, people or topics..." aria-label="Search skills, people or topics"></label><a class="icon-btn" href="notifications.html" aria-label="Notifications">!</a><a class="avatar avatar-small" href="profile.html">?</a></div></div>
+        <p class="dashboard-status">You have <strong data-request-count>Loading...</strong> pending requests and <strong data-note-count>Loading...</strong> new messages.</p>
+        <div class="dashboard-grid">
+          <article class="balance-panel"><div class="panel-heading"><div><p class="eyebrow">My Time Balance</p><h2 class="balance-number num" data-balance>Loading...</h2></div><span class="badge">Your wallet</span></div><div class="progress"><span style="width:0"></span></div><div class="balance-stats"><span><b>Earned This Month</b><strong data-earned>Loading...</strong></span><span><b>Spent This Month</b><strong data-spent>Loading...</strong></span><span><b>Donated to Pool</b><strong data-community>Loading...</strong></span></div><div class="panel-actions"><a class="btn btn-primary" href="wallet.html">Send Time</a><a class="btn btn-ghost" href="marketplace.html">Request Time</a><a class="btn btn-soft" href="community.html">Donate</a></div></article>
+          <div class="quick-stats"><article><span>Active Services</span><strong data-active-services>Loading...</strong><small>Services you offer</small></article><article><span>Completed</span><strong data-completed>Loading...</strong><small>Completed exchanges</small></article><article><span>Average Rating</span><strong data-rating>Loading...</strong><small>Ratings received</small></article><article><span>Response Rate</span><strong data-response-rate>Loading...</strong><small>Provider requests</small></article></div>
         </div>
-        <div class="cards-grid" style="margin-top:18px;grid-template-columns:1.2fr 1fr;">
-          <article class="chart-box">
-            <h2>Weekly activity</h2>
-            <p class="muted">Hours moved this week</p>
-            <canvas data-week-chart></canvas>
-          </article>
-          <article class="chart-box">
-            <h2>Monthly exchange</h2>
-            <p class="muted">Time earned vs seasonality</p>
-            <canvas data-month-chart></canvas>
-          </article>
-        </div>
-        <div class="cards-grid" style="margin-top:18px;">
-          <article class="dark-card">
-            <h2>Recent transactions</h2>
-            <div data-tx-list></div>
-            <a class="btn btn-ghost" href="transactions.html" style="margin-top:12px;">View ledger</a>
-          </article>
-          <article class="dark-card">
-            <h2>Inbox pulse</h2>
-            <p style="margin:12px 0;">Open requests: <strong data-request-count>0</strong></p>
-            <p>Unread notifications: <strong data-note-count>0</strong></p>
-            <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
-              <a class="btn btn-primary" href="requests.html">Review requests</a>
-              <a class="btn btn-ghost" href="notifications.html">Open notifications</a>
-            </div>
-          </article>
-        </div>
+        <div class="dashboard-columns"><article class="surface-card dashboard-card"><div class="card-heading"><div><h2>Recent Transactions</h2><p class="muted">Your latest time exchanges</p></div><a href="transactions.html">View All →</a></div><div data-tx-list></div></article><article class="surface-card dashboard-card"><div class="card-heading"><div><h2>Pending Requests</h2><p class="muted">People waiting for your help</p></div><a href="requests.html">View All →</a></div><div class="request-list" data-dashboard-requests></div></article></div>
+        <section class="activity-card" aria-labelledby="activity-title">
+          <div class="activity-header"><div><h2 id="activity-title">Time Activity</h2><p class="muted">Your time credits over the selected period</p></div><label class="activity-range">Range<select data-activity-range aria-label="Time activity range"><option value="3">3 Months</option><option value="6" selected>6 Months</option><option value="12">1 Year</option></select></label></div>
+          <div class="activity-summary"><span><b>Earned</b><strong data-activity-earned>Loading...</strong></span><span><b>Spent</b><strong data-activity-spent>Loading...</strong></span><span><b>Net Time</b><strong data-activity-net>Loading...</strong></span></div>
+          <div class="activity-plot" data-activity-state="loading"><p class="activity-message" data-activity-message>Loading time activity...</p><canvas data-activity-chart aria-label="Monthly earned and spent time credits"></canvas><div class="activity-tooltip" data-activity-tooltip hidden></div></div>
+          <div class="activity-legend" aria-label="Chart legend"><span><i class="legend-dot earned"></i>Earned</span><span><i class="legend-dot spent"></i>Spent</span></div>
+        </section>
       </main>
     </div>
   </div>

@@ -1,25 +1,25 @@
 :root {
-  --color-bg: #08111f;
-  --color-bg-elevated: #0d1829;
-  --color-bg-soft: #122038;
-  --color-primary: #35e0d0;
-  --color-primary-dim: rgba(53, 224, 208, 0.16);
-  --color-secondary: #8b7cff;
-  --color-secondary-dim: rgba(139, 124, 255, 0.16);
-  --color-gold: #ffc857;
-  --color-gold-dim: rgba(255, 200, 87, 0.16);
-  --color-surface: #f5f7fa;
+  --color-bg: #fffdfb;
+  --color-bg-elevated: #ffffff;
+  --color-bg-soft: #fff1eb;
+  --color-primary: #f26b4f;
+  --color-primary-dim: rgba(242, 107, 79, 0.14);
+  --color-secondary: #17324d;
+  --color-secondary-dim: rgba(23, 50, 77, 0.1);
+  --color-gold: #f2a65a;
+  --color-gold-dim: rgba(242, 166, 90, 0.16);
+  --color-surface: #fff5f0;
   --color-surface-card: #ffffff;
-  --color-text: #f8fafc;
-  --color-text-muted: #94a3b8;
-  --color-text-dark: #111827;
-  --color-text-dark-muted: #4b5563;
-  --color-border: rgba(248, 250, 252, 0.08);
-  --color-border-strong: rgba(248, 250, 252, 0.16);
+  --color-text: #17324d;
+  --color-text-muted: #718096;
+  --color-text-dark: #17324d;
+  --color-text-dark-muted: #64748b;
+  --color-border: #e8e4e1;
+  --color-border-strong: #d9d2ce;
   --color-danger: #f07167;
   --color-danger-dim: rgba(240, 113, 103, 0.14);
-  --color-success: #35e0d0;
-  --color-spend: #f4a261;
+  --color-success: #3a9d76;
+  --color-spend: #d65a4a;
 
   --font-sans: "Plus Jakarta Sans", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", ui-monospace, monospace;
@@ -42,10 +42,10 @@
   --radius-lg: 16px;
   --radius-full: 999px;
 
-  --shadow-sm: 0 4px 16px rgba(8, 17, 31, 0.18);
-  --shadow-md: 0 12px 40px rgba(8, 17, 31, 0.28);
-  --shadow-glow: 0 0 0 1px rgba(53, 224, 208, 0.24), 0 8px 28px rgba(53, 224, 208, 0.18);
-  --shadow-gold: 0 0 0 1px rgba(255, 200, 87, 0.28), 0 8px 24px rgba(255, 200, 87, 0.12);
+  --shadow-sm: 0 8px 24px rgba(23, 50, 77, 0.08);
+  --shadow-md: 0 18px 48px rgba(23, 50, 77, 0.12);
+  --shadow-glow: 0 10px 24px rgba(242, 107, 79, 0.2);
+  --shadow-gold: 0 10px 24px rgba(242, 166, 90, 0.16);
 
   --nav-h: 72px;
   --container: 1180px;

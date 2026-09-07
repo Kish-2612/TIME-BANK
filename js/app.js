@@ -1,10 +1,11 @@
 import { getSession, logout, loadUserProfile } from "./api.js";
 import { isSupabaseConfigured, supabase } from "./supabase.js";
 import { closeModal, observeReveal } from "./ui.js";
+import { icon, initials } from "./ui.js";
 
 const logoSvg = `
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path d="M7 3h10M8 3c0 4 3 6 4 9-1 3-4 5-4 9M16 3c0 4-3 6-4 9 1 3 4 5 4 9M7 21h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
   </svg>
 `;
 
@@ -17,32 +18,44 @@ function greeting() {
 
 export async function mountChrome({ app = false } = {}) {
   const nav = document.querySelector("[data-nav]");
-  const session = isSupabaseConfigured
-    ? (await supabase.auth.getSession()).data.session
-    : getSession();
+  let session = getSession();
+  if (isSupabaseConfigured) {
+    try {
+      session = (await supabase.auth.getSession()).data.session;
+    } catch (error) {
+      console.warn("Unable to read the Supabase session; using the public navigation.", error);
+    }
+  }
   if (app && !session) {
     window.location.href = "login.html";
     return false;
+  }
+  let currentProfile = null;
+  if (session) {
+    try {
+      currentProfile = await loadUserProfile();
+    } catch (error) {
+      console.warn("Unable to load the signed-in profile for shared navigation.", error);
+    }
   }
   if (nav) {
     const page = document.body.dataset.page;
     nav.innerHTML = `
       <div class="nav-inner">
-        <a class="logo" href="index.html">${logoSvg} TIMEBANK</a>
+        <a class="logo" href="index.html"><span class="logo-mark">${logoSvg}</span><span><b>Time</b><strong>Bank</strong></span></a>
         <nav class="nav-links" aria-label="Primary">
-          <a href="index.html" class="${page === "home" ? "is-active" : ""}">Home</a>
           <a href="index.html#how">How It Works</a>
           <a href="marketplace.html" class="${page === "marketplace" ? "is-active" : ""}">Marketplace</a>
-          <a href="community.html" class="${page === "community" ? "is-active" : ""}">Community</a>
-          <a href="index.html#about">About</a>
+          <a href="community.html" class="${page === "community" ? "is-active" : ""}">Community Pool</a>
+          <a href="index.html#matching">Matching</a>
         </nav>
         <div class="nav-actions">
           ${
             session
               ? `<div class="dropdown" data-user-menu>
                   <button class="user-chip" type="button" aria-haspopup="true" aria-expanded="false">
-                    <span class="avatar">AR</span>
-                    <span class="hide-sm">Alex</span>
+                    <span class="avatar">${initials(currentProfile?.fullName || "Member")}</span>
+                    <span class="hide-sm">${currentProfile?.fullName || "Member"}</span>
                   </button>
                   <div class="dropdown-menu">
                     <a href="dashboard.html">Dashboard</a>
@@ -51,8 +64,8 @@ export async function mountChrome({ app = false } = {}) {
                     <button type="button" data-logout>Log out</button>
                   </div>
                 </div>`
-              : `<a class="btn btn-ghost hide-sm" href="login.html">Log In</a>
-                 <a class="btn btn-primary" href="register.html">Start Banking Time</a>`
+                : `<a class="btn btn-link hide-sm" href="login.html">Sign In</a>
+                  <a class="btn btn-primary" href="register.html">Join Now</a>`
           }
           <button class="hamburger" type="button" aria-label="Open menu" data-hamburger><span></span></button>
         </div>
@@ -105,12 +118,13 @@ export async function mountChrome({ app = false } = {}) {
     ];
     if (sidebar) {
       sidebar.innerHTML = `
-        <a class="logo" href="dashboard.html" style="margin: 0 12px 22px;">${logoSvg} TIMEBANK</a>
+        <a class="logo" href="dashboard.html" style="margin: 0 12px 22px;"><span class="logo-mark">${logoSvg}</span><span><b>Time</b><strong>Bank</strong></span></a>
         <nav aria-label="Dashboard">
           ${links
             .map(([href, label, key]) => {
               const active = page === key;
-              return `<a class="side-link ${active ? "is-active" : ""}" href="${href}"${active ? ' aria-current="page"' : ""}>${label}</a>`;
+              const names = { dashboard: "home", wallet: "wallet", offer: "grid", marketplace: "grid", requests: "check", transactions: "wallet", notifications: "bell", community: "grid", profile: "user" };
+              return `<a class="side-link ${active ? "is-active" : ""}" href="${href}"${active ? ' aria-current="page"' : ""}>${icon(names[key])}<span>${label}</span>${key === "requests" ? '<b class="side-count" data-side-request-count></b>' : ""}</a>`;
             })
             .join("")}
         </nav>
@@ -119,7 +133,7 @@ export async function mountChrome({ app = false } = {}) {
     const bottom = document.querySelector("[data-bottom-nav]");
     if (bottom) {
       bottom.innerHTML = `
-        <a href="dashboard.html" class="${page === "dashboard" ? "is-active" : ""}">Overview</a>
+        <a href="dashboard.html" class="${page === "dashboard" ? "is-active" : ""}">${icon("home")}<span>Overview</span></a>
         <a href="marketplace.html" class="${page === "marketplace" ? "is-active" : ""}">Market</a>
         <a href="wallet.html" class="${page === "wallet" ? "is-active" : ""}">Wallet</a>
         <a href="requests.html" class="${page === "requests" ? "is-active" : ""}">Requests</a>
@@ -128,9 +142,34 @@ export async function mountChrome({ app = false } = {}) {
     }
     const greet = document.querySelector("[data-greeting]");
     if (greet) {
-      const profile = await loadUserProfile();
-      greet.textContent = `${greeting()}, ${profile.fullName.split(" ")[0]}`;
+      try {
+        const profile = currentProfile || await loadUserProfile();
+        const firstName = profile.fullName?.split(" ")[0] || "there";
+        greet.textContent = `${greeting()}, ${firstName}`;
+      } catch (error) {
+        console.warn("Unable to load the dashboard profile greeting.", error);
+      }
     }
+  }
+
+  const publicSidebar = document.querySelector("[data-public-sidebar]");
+  if (publicSidebar) {
+    const page = document.body.dataset.page;
+    const links = [
+      ["index.html", "Home", "home"],
+      ["index.html#how", "How It Works", ""],
+      ["marketplace.html", "Marketplace", "marketplace"],
+      ["community.html", "Community", "community"],
+      ["index.html#about", "About", ""]
+    ];
+    publicSidebar.innerHTML = `
+      <a class="logo" href="index.html" style="margin: 0 12px 22px;">${logoSvg} TIMEBANK</a>
+      <nav aria-label="Public navigation">
+        ${links
+          .map(([href, label, key]) => `<a class="side-link ${page === key ? "is-active" : ""}" href="${href}"${page === key ? ' aria-current="page"' : ""}>${label}</a>`)
+          .join("")}
+      </nav>
+    `;
   }
 
   bindChrome();
@@ -203,7 +242,7 @@ export function renderFooter() {
     </div>
     <div class="container footer-bottom">
       <span>© 2026 TimeBank. Your time has value.</span>
-      <span>Ready for Supabase. Mock ledger active.</span>
+      <span>Securely connected to your TimeBank ledger.</span>
     </div>
   `;
 }

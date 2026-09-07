@@ -1,4 +1,4 @@
-import { createService } from "./api.js";
+import { createService, loadOwnedServices } from "./api.js";
 import { CATEGORIES } from "./data.js";
 import { mountChrome } from "./app.js";
 import { setButtonBusy, toast } from "./ui.js";
@@ -19,6 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     option.textContent = category;
     select.append(option);
   });
+  const ownedRoot = document.querySelector("[data-owned-services]");
+  try {
+    const services = await loadOwnedServices();
+    ownedRoot.innerHTML = services.length ? services.map((service) => `<article class="surface-card" style="margin-bottom:10px;"><strong>${service.title}</strong><p class="muted">${service.description}</p><div class="meta-row"><span>${service.status}</span><span>${service.cost} credits · ${service.duration} hrs</span></div></article>`).join("") : `<div class="empty"><p>You haven't created any services yet.</p><a class="btn btn-primary" href="#title">Create Your First Service</a></div>`;
+  } catch (error) {
+    ownedRoot.innerHTML = `<div class="empty"><p>${error.message}</p></div>`;
+  }
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();

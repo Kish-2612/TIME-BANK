@@ -7,7 +7,7 @@ TimeBank is a static HTML, CSS, and JavaScript application where time is exchang
 1. Create a project at [supabase.com](https://supabase.com).
 2. Open **Project Settings > API**.
 3. Copy the project URL and the public publishable/anon key. Never use the `service_role` key in this project.
-4. Open the Supabase SQL Editor and run `supabase/migrations/001_initial_schema.sql`, then `supabase/migrations/002_service_sessions.sql`.
+4. Open the Supabase SQL Editor and run `001_initial_schema.sql`, `002_service_sessions.sql`, `003_public_marketplace_read.sql`, `004_community_donation.sql`, then `005_public_pool_read.sql`.
 5. In an untracked local copy of `js/runtime-config.js`, set:
 
 ```js
@@ -31,7 +31,7 @@ The current browser video path uses WebRTC with Supabase Realtime broadcast sign
 
 ## Current integration boundary
 
-Supabase Auth is connected when runtime configuration is present. The existing UI continues to use mock repository data for marketplace, wallet, request, notification, and transaction screens until their methods in `js/api.js` are replaced with the corresponding Supabase queries and RPC calls. This fallback keeps the static UI usable while the database is being configured.
+All application data is read from Supabase. Marketplace and public pool reads use public RLS policies; wallet, requests, transactions, notifications, reviews, and profile activity require the authenticated user's `auth.uid()`. Empty or unavailable data is shown as an explicit empty/error state rather than replaced with demo records.
 
 ## Security
 

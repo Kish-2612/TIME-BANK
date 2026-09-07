@@ -12,9 +12,15 @@ const icons = {
 
 document.addEventListener("DOMContentLoaded", async () => {
   if (!(await mountChrome({ app: true }))) return;
-  const list = await loadNotifications();
+  let list;
+  try {
+    list = await loadNotifications();
+  } catch (error) {
+    document.querySelector("[data-notes]").innerHTML = `<div class="empty error-state"><p>${error.message}</p></div>`;
+    return;
+  }
   const root = document.querySelector("[data-notes]");
-  root.innerHTML = list
+  root.innerHTML = list.length ? list
     .map(
       (item) => `
       <article class="notif ${item.unread ? "unread" : ""}">
@@ -27,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       </article>
     `
     )
-    .join("");
+    .join("") : `<div class="empty"><p>You're all caught up.</p></div>`;
 
   document.querySelector("[data-mark-read]")?.addEventListener("click", async () => {
     await markNotificationsRead();

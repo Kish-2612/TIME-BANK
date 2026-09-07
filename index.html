@@ -25,33 +25,38 @@
       <div class="hero-scan"></div>
       <div class="container hero-grid">
         <div class="reveal">
-          <p class="eyebrow">The time economy</p>
+          <p class="eyebrow">Campus exchange network</p>
           <h1 class="display">Your Time Is<br><em>Your Currency.</em></h1>
-          <p class="lead">Give an hour. Earn an hour. Build a community where skills, help and human connection are exchanged through time.</p>
+          <p class="lead">Give an hour. Earn an hour. Share your skills and build a community where time has real value. Built exclusively for students.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="register.html">Start Banking Time</a>
+            <a class="btn btn-primary" href="register.html">Start Banking Time <span aria-hidden="true">→</span></a>
             <a class="btn btn-ghost" href="#how">Explore How It Works</a>
           </div>
         </div>
         <div class="wallet-visual">
           <div class="float-chip a float">+1 hr Java Tutoring</div>
           <div class="float-chip b float float-delay">+0.5 hr Design Help</div>
-          <div class="float-chip c float">4.9 ★ Reputation</div>
+          <div class="float-chip c float">Time has real value</div>
           <article class="wallet-card">
-            <p class="eyebrow">Time Wallet</p>
+            <div class="wallet-profile"><span class="avatar">TB</span><div><strong>Your private wallet</strong><small>Sign in to view your balance</small></div><span class="badge">Private</span></div>
+            <p class="eyebrow">Your time wallet</p>
             <div class="wallet-ring">
               <svg viewBox="0 0 200 200" aria-hidden="true">
                 <circle class="track" cx="100" cy="100" r="90"></circle>
                 <circle class="progress" data-hero-progress cx="100" cy="100" r="90" stroke-dasharray="565.48" stroke-dashoffset="565.48"></circle>
               </svg>
               <div class="wallet-center">
-                <div class="label">Time Credits</div>
-                <div class="value num balance-pulse" data-hero-balance>0.0</div>
-                <div class="chip" data-hero-earned>+0.0 earned this week</div>
+                <div class="label">Available hours</div>
+                <div class="value wallet-login-prompt">Sign in</div>
+                <div class="chip">Your balance is private</div>
               </div>
             </div>
-            <canvas data-spark height="88" style="width:100%;height:88px;margin-top:16px;"></canvas>
+            <div class="wallet-stats"><span><b>Earned</b><strong>Private</strong></span><span><b>Spent</b><strong>Private</strong></span></div>
           </article>
+          <div class="exchange-feed" data-observe>
+            <div class="feed-heading"><span>Live exchange ledger</span><span class="live-dot">Live</span></div>
+            <div class="empty"><p>Sign in to see your exchange activity.</p></div>
+          </div>
         </div>
       </div>
     </section>
@@ -60,9 +65,28 @@
       <div class="container">
         <div class="stats-row" data-stats>
           <div class="stat-cell"><div class="num" data-stat="members">0</div><span>Members</span></div>
-          <div class="stat-cell"><div class="num" data-stat="hours">0</div><span>Hours Exchanged</span></div>
-          <div class="stat-cell"><div class="num" data-stat="services">0</div><span>Services Completed</span></div>
-          <div class="stat-cell"><div class="num" data-stat="rating">0</div><span>Average Rating</span></div>
+          <div class="stat-cell"><div class="num" data-stat="hours">—</div><span>Private activity</span></div>
+          <div class="stat-cell"><div class="num" data-stat="services">—</div><span>Active Services</span></div>
+          <div class="stat-cell"><div class="num" data-stat="rating">—</div><span>Private ratings</span></div>
+        </div>
+        <div class="category-rail" data-observe>
+          <span class="rail-label">Trade what you know</span>
+          <span>Technology</span><span>Education</span><span>Design</span><span>Languages</span><span>Fitness</span><span>Repair</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section trust-section">
+      <div class="container trust-grid">
+        <div>
+          <p class="eyebrow">Why TimeBank</p>
+          <h2 class="section-title">A better way to move value between people.</h2>
+          <p class="section-kicker">Your skills become useful currency. Every exchange is visible, every hour has a story, and every contribution strengthens the network.</p>
+        </div>
+        <div class="trust-points">
+          <article><span class="point-number">01</span><div><h3>Human-first exchange</h3><p class="muted">Ask for help without a price tag attached to your life.</p></div></article>
+          <article><span class="point-number">02</span><div><h3>A ledger you can trust</h3><p class="muted">Completed sessions settle credits atomically and transparently.</p></div></article>
+          <article><span class="point-number">03</span><div><h3>Reputation that travels</h3><p class="muted">Build a record of generosity, reliability, and real outcomes.</p></div></article>
         </div>
       </div>
     </section>
@@ -71,12 +95,25 @@
       <div class="container">
         <p class="eyebrow">How it works</p>
         <h2 class="section-title">Four moves. One ledger.</h2>
-        <p class="section-kicker">Open an account, offer what you know, exchange hours, and keep a living balance of time.</p>
+        <p class="section-kicker">A simple rhythm for giving, receiving, and building trust one useful hour at a time.</p>
         <div class="timeline" data-observe>
           <article class="step"><div class="step-index">01</div><div><h3>Create Your TimeBank Account</h3><p class="muted">Identity, skills, and a starting reputation. No money required.</p></div></article>
           <article class="step"><div class="step-index">02</div><div><h3>Offer Your Skills</h3><p class="muted">Publish an hour of what you can actually teach, fix, or make.</p></div></article>
           <article class="step"><div class="step-index">03</div><div><h3>Exchange Your Time</h3><p class="muted">Request help, complete the hour, and the ledger moves both ways.</p></div></article>
           <article class="step"><div class="step-index">04</div><div><h3>Earn &amp; Spend Time Credits</h3><p class="muted">Every completed hour becomes currency you can spend or donate.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section feature-section" id="features">
+      <div class="container">
+        <p class="eyebrow">Everything in one place</p>
+        <h2 class="section-title">A better home for the hours you have.</h2>
+        <div class="feature-grid">
+          <article><span class="feature-icon">⌘</span><h3>Skill Marketplace</h3><p class="muted">Find practical help from students who know how to make progress.</p></article>
+          <article><span class="feature-icon">◷</span><h3>Time Wallet</h3><p class="muted">See what you have earned, spent, and shared at a glance.</p></article>
+          <article><span class="feature-icon">◎</span><h3>Smart Matching</h3><p class="muted">Meet people whose skills connect naturally with what you need.</p></article>
+          <article><span class="feature-icon">▣</span><h3>Secure Sessions</h3><p class="muted">Request, meet, review, and settle every completed exchange with confidence.</p></article>
         </div>
       </div>
     </section>
@@ -115,17 +152,17 @@
       <div class="container">
         <p class="eyebrow">Marketplace</p>
         <h2 class="section-title">Find Someone Who Can Help.</h2>
-        <p class="section-kicker">Hours priced in hours. People priced in reputation.</p>
+        <p class="section-kicker">Find practical help from people who care about doing good work and showing up well.</p>
         <div class="cards-grid" data-market-preview style="margin-top:28px;"></div>
         <p style="margin-top:22px;"><a class="btn btn-primary" href="marketplace.html">Open the marketplace</a></p>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="matching">
       <div class="container">
         <p class="eyebrow">Smart matching</p>
         <h2 class="section-title">People You Should Meet</h2>
-        <p class="section-kicker">Match scores are a product surface ready for a real algorithm — not a claim of intelligence.</p>
+        <p class="section-kicker">Meet thoughtful people whose experience complements what you want to learn or make.</p>
         <div class="cards-grid" data-matches style="margin-top:28px;"></div>
       </div>
     </section>
@@ -134,19 +171,33 @@
       <div class="container pool-hero">
         <div>
           <p class="eyebrow">Community time pool</p>
-          <h2 class="section-title">Give Time. Create Impact.</h2>
-          <p class="section-kicker">Donate unused Time Credits to help people who cannot afford to give time back.</p>
-          <a class="btn btn-gold" href="community.html" style="margin-top:22px;">Donate Time</a>
+          <h2 class="section-title">Let spare time become shared momentum.</h2>
+          <p class="section-kicker">Donate unused Time Credits to help people who need support before they can give time back.</p>
+          <a class="btn btn-gold" href="community.html" style="margin-top:22px;">Visit the community pool</a>
         </div>
         <article class="pool-stat">
           <p class="eyebrow">Community Pool</p>
           <div class="num" data-pool-hours>0</div>
           <p class="muted">hours held in trust</p>
           <div class="meta-row" style="color:var(--color-text-muted);">
-            <span>Donated by <strong data-pool-donors>0</strong> members</span>
-            <span>People helped <strong data-pool-helped>0</strong></span>
+            <span data-pool-donated>Loading pool data</span>
+            <span data-pool-distributed>Loading distribution data</span>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <div class="container cta-panel">
+        <div>
+          <p class="eyebrow">Your next hour matters</p>
+          <h2 class="section-title">Bring something useful to the table.</h2>
+          <p class="section-kicker">Start with one skill, one request, or one generous hour. The rest grows from there.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="register.html">Create your account</a>
+          <a class="btn btn-ghost" href="marketplace.html">Browse useful hours</a>
+        </div>
       </div>
     </section>
   </main>
